@@ -55,11 +55,11 @@ TEST(test_MovementSample, position_sample)
 TEST(test_MovementSample, some_use_cases)
 {
   {
-    rhoban_ssl::MovementSample mov;
+    rhoban_ssl::MovementSample<0> mov;
     EXPECT_TRUE(mov.size() == 0);
   }
   {
-    rhoban_ssl::MovementSample mov(3);
+    rhoban_ssl::MovementSample<3> mov;
     mov.insert(rhoban_ssl::PositionSample(1, Point(1, 2), ContinuousAngle(4)));
     mov.insert(rhoban_ssl::PositionSample(2, Point(8, 16), ContinuousAngle(32)));
     mov.insert(rhoban_ssl::PositionSample(3, Point(27, 54), ContinuousAngle(108)));
@@ -83,7 +83,7 @@ TEST(test_MovementSample, some_use_cases)
     EXPECT_TRUE(mov.angularAcceleration(0) == ContinuousAngle(48));
   }
   {
-    rhoban_ssl::MovementSample mov(3);
+    rhoban_ssl::MovementSample<3> mov;
     mov.insert(rhoban_ssl::PositionSample(1, Point(1, 2), ContinuousAngle(4)));
     mov.insert(rhoban_ssl::PositionSample(3, Point(8, 16), ContinuousAngle(32)));
     mov.insert(rhoban_ssl::PositionSample(6, Point(27, 54), ContinuousAngle(108)));
@@ -107,7 +107,7 @@ TEST(test_MovementSample, some_use_cases)
     EXPECT_TRUE(std::fabs((mov.angularAcceleration(0) - ContinuousAngle(68) / (2 * 3 * 3)).value()) < 0.0001);
   }
   {
-    rhoban_ssl::MovementSample mov(4);
+    rhoban_ssl::MovementSample<4> mov;
     mov.insert(rhoban_ssl::PositionSample(1, Point(1, 2), ContinuousAngle(4)));
     mov.insert(rhoban_ssl::PositionSample(3, Point(8, 16), ContinuousAngle(32)));
     mov.insert(rhoban_ssl::PositionSample(6, Point(27, 54), ContinuousAngle(108)));
