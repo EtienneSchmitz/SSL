@@ -169,7 +169,6 @@ set (SOURCES
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../../bin/)
-set(TEST_DIRECTORY ${CMAKE_SOURCE_DIR}/../../bin/)
 
 set(ALL_LIBS ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} websockets)
 
@@ -247,6 +246,8 @@ if(CATKIN_ENABLE_TESTING)
   foreach(test_source ${TEST_SOURCES})
       get_filename_component(name_test ${test_source} NAME_WE)
       catkin_add_gtest(${name_test} ${test_source})
+      set_target_properties(${name_test} PROPERTIES
+          RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../../bin/tests/")
       target_link_libraries(${name_test} ssl_ai ${ALL_LIBS})
   endforeach(test_source)
 endif(CATKIN_ENABLE_TESTING)
