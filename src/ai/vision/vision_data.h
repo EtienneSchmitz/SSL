@@ -29,7 +29,7 @@
 #include "config.h"
 #include <execution_manager.h>
 
-#include <messages_robocup_ssl_wrapper.pb.h>
+#include <protobuf_ssl/messages_robocup_ssl_wrapper.pb.h>
 
 namespace rhoban_ssl
 {

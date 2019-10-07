@@ -1,6 +1,7 @@
 #include "viewer_server.h"
 #include <assert.h>
 #include <algorithm>
+#include <signal.h>
 
 namespace rhoban_ssl
 {

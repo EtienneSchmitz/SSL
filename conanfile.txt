@@ -1,0 +1,12 @@
+[requires]
+geometry/1.0.0@rhoban/stable
+protobuf_ssl/1.0.0@namec/stable
+
+# third party libraries
+tclap/1.2.2@third_party/stable
+serial/1.2.1@third_party/stable
+jsoncpp/1.9.0@theirix/stable
+libwebsockets/2.4.0@bincrafters/stable
+
+[generators]
+cmake

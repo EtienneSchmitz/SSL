@@ -2,9 +2,9 @@
 
 #include <string>
 #include <rhoban_utils/sockets/udp_broadcast.h>
-#include "grSim_Packet.pb.h"
-#include "grSim_Commands.pb.h"
-#include "grSim_Replacement.pb.h"
+#include <protobuf_ssl/grSim_Packet.pb.h>
+#include <protobuf_ssl/grSim_Commands.pb.h>
+#include <protobuf_ssl/grSim_Replacement.pb.h>
 
 namespace rhoban_ssl
 {

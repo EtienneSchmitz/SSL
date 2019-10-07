@@ -19,7 +19,7 @@
 #pragma once
 
 #include <execution_manager.h>
-#include <ssl_referee.pb.h>
+#include <protobuf_ssl/ssl_referee.pb.h>
 #include <referee/game_state.h>
 
 namespace rhoban_ssl

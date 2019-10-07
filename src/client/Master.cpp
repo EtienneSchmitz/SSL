@@ -4,6 +4,7 @@
 #include <signal.h>
 #include <assert.h>
 #include <execution_manager.h>
+#include <serial/serial.h>
 
 namespace rhoban_ssl
 {

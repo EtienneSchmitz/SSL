@@ -1,22 +1,10 @@
-cmake_minimum_required(VERSION 2.8)
-project(ssl_ai)
+cmake_minimum_required(VERSION 3.13)
+
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ")
 
-find_package(catkin REQUIRED COMPONENTS
-  ssl_client tclap rhoban_geometry jsoncpp
-)
-
-catkin_package(
-    INCLUDE_DIRS .
-    LIBRARIES ssl_ai
-    CATKIN_DEPENDS ssl_client rhoban_geometry tclap jsoncpp
-)
-
 find_package(Protobuf REQUIRED)
 
-include_directories(${PROTOBUF_INCLUDE_DIRS} .)
-include_directories(${catkin_INCLUDE_DIRS} .)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set (SOURCES
@@ -168,12 +156,13 @@ set (SOURCES
     stats/resource_usage.cpp
 )
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../../bin/)
-
-set(ALL_LIBS ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} websockets)
+set(ALL_LIBS ${CONAN_LIBS} ssl_client)
 
 add_library (ssl_ai ${SOURCES})
-target_link_libraries(ssl_ai ${ALL_LIBS})
+target_link_libraries(ssl_ai ${ALL_LIBS} )
+target_include_directories(ssl_ai PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
+)
 
 add_executable(ai main.cpp)
 target_link_libraries(ai ssl_ai ${ALL_LIBS})
@@ -217,12 +206,7 @@ target_link_libraries(test_field_info ssl_ai ${ALL_LIBS})
 add_executable(music_player executables/music_player.cpp)
 target_link_libraries(music_player ssl_ai ${ALL_LIBS})
 
-
-message(WARNING "CATKIN ENABLE TESTING: ${CATKIN_ENABLE_TESTING}")
-
-if(CATKIN_ENABLE_TESTING)
-  include(CTest)
-
+if(BUILD_TESTS)
   set (TEST_SOURCES
     core/test_machine_state.cpp
     core/test_collection.cpp
@@ -245,9 +229,10 @@ if(CATKIN_ENABLE_TESTING)
 
   foreach(test_source ${TEST_SOURCES})
       get_filename_component(name_test ${test_source} NAME_WE)
-      catkin_add_gtest(${name_test} ${test_source})
+      add_executable(${name_test} ${test_source})
+      add_test(NAME  ${name_test} COMMAND ${name_test})
       set_target_properties(${name_test} PROPERTIES
-          RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../../bin/tests/")
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/tests/")
       target_link_libraries(${name_test} ssl_ai ${ALL_LIBS})
   endforeach(test_source)
-endif(CATKIN_ENABLE_TESTING)
+endif()

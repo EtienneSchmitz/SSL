@@ -3,7 +3,7 @@
 #include <mutex>
 #include <thread>
 #include <rhoban_utils/timing/time_stamp.h>
-#include <messages_robocup_ssl_wrapper.pb.h>
+#include <protobuf_ssl/messages_robocup_ssl_wrapper.pb.h>
 #include "MulticastClient.h"
 #include "multicast_client_single_thread.h"
 #include "client_config.h"
