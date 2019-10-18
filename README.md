@@ -8,62 +8,68 @@ The code follows the guideline describe in ROS. [ROS_Guideline](http://wiki.ros.
 
 We using a .clang-format file. Caution ! Use the clang-format version 6.0, if your OS doesn't install it automatically then install clang-format-6.0 and rename the command to use the format script.
 
-## Requirements
+## Installation
 
 ### System dependencies
 
 You will need theses packets:
 
 ``` bash
-sudo apt-get install -y g++ cmake libprotobuf-dev \
-  protobuf-compiler php php-cli php-xml \
-  libgtest-dev libwebsockets-dev gnuplot
+sudo apt-get install -y g++ gnuplot python-pip clang-format-6.0 cmake ninja-build
 ```
 
-To install the new viewer, we have conflits between the npm and the libwebsockets.
-Go to here https://github.com/nodesource/distributions/blob/master/README.md and install npm.
+### Setup conan package manager
 
-### Catkin
-
-Now install catkin:
+Install [conan](https://docs.conan.io/en/latest/):
 
 ``` bash
-sudo apt-get install -y python-pip python-empy
-# Eventually, if necessary, install python3-trollius
-sudo apt-get install -y python3-trollius
-sudo pip install -U catkin_tools
+# Install conan  
+sudo pip install --user conan
+
+# Install NAMEC configuration of conan  
+conan config install http://gitlab.namec.fr/ssl/conan-configuration.git
 ```
 
-## Dependencies
+## Build
 
-After cloning this repository, run:
+By default all targets are build in **debug** mode.
+You can specify a [profiles](https://docs.conan.io/en/latest/reference/profiles.html) when you install conan dependencies by adding `-pr=<profile_name>` after the command `conan install ..` .
+
+Check: http://gitlab.namec.fr/ssl/conan-configuration.git to see all available profiles.
+
+To build in debug, run:
 
 ``` bash
-./workspace setup
-./workspace install
+mkdir build_debug && build_debug
+conan install .. # -pr=debug
+cmake ..  # -GNinja to compile with Ninja instead of make
+make -j 8 # or ninja
 ```
 
-This will install all the dependencies.
-
-See also clang-format above.
-
-## Building
-
-To build, run:
+To build in release, run:
 
 ``` bash
-./workspace build
+mkdir build_release && build_release
+conan install .. -pr=release
+cmake .. # -GNinja to compile with Ninja instead of make
+make -j 8 # or ninja
 ```
 
 Then, you can use the following debugging binaries:
 
-* `./bin/vision`, to display informations from the vision (see `client/vision.cpp`)
-* `./bin/referee`, to display informations from the referee (see `client/referee.cpp`)
-* `./bin/sim`, to send commands to the simulator (see `client/sim.cpp`)
+* `./build_release/bin/vision`, to display informations from the vision (see `client/vision.cpp`)
+* `./build_release/bin/referee`, to display informations from the referee (see `client/referee.cpp`)
+* `./build_release/bin/sim`, to send commands to the simulator (see `client/sim.cpp`)
 
-## Documentation
+### CMake options
 
-From workspace root:
+| CMake arguments         | Behavior                                        |
+| ----------------------- | ----------------------------------------------- |
+| **-DBUILD_TESTS=on**    | build all tests in `build_<type>/bin/tests/`    |
+
+### Documentation
+
+From the root of the repository:
 
 ``` bash
 cd doc
@@ -73,64 +79,33 @@ cmake ..
 make doc
 ```
 
-Documentation is inside html directory.
+Documentation is inside html/ directory.
 
 ## Testing
 
-Tests can be built using the command: `./workspace tests`
-
-To run the tests (once built), use the command: `./workspace test`
-
-Access to the test message is controlled by adding the flag `--verbose`.
-
-Example: Building and showing tests, but only for ssl_ai
-`./workspace tests --verbose --no-deps ssl_ai`
+To run the tests once built (see [CMake options](#cmake-options)), just run them under the `build/bin/tests/` folder.
 
 ## Packages
 
 Here are the packages:
 
+* `ai`: the package that can all the code relative to the ai.
 * `client`: the package to communicate with the SSL official software (vision, referee and simulator)
-  * Note that this provides test binaries in `bin/` directory
+  * Note that this provides test binaries in `bin/tests` directory
 * `viewer`: the viewer to interact with the strategies
 * TODO!
 
 ## QtCreator
 
-To use QtCreator, you have to add following line at the end of the file .workspace/SetupCommand.php:
-
-below the line:
-
-``` php
-OS::run('catkin config --profile release -x _release --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Wall -msse2"');
-```
-
-add the two lines:
-
-``` php
-OS::run('catkin config --profile qtcreator_debug -x _qtdebug --cmake-args -G"CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wall -msse2"');
-
-OS::run('catkin config --profile qtcreator_release -x _qtrelease --cmake-args -G"CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Wall -msse2"');
-```
-
-This will create a debug and release profile with CodeBlocks support (needed by QtCreator).
-
-Then:
+To use QtCreator, you have to open the CMakeFiles:
 
 ``` bash
-./workspace setup
-./workspace build --profile=qtcreator_debug
-./workspace build --profile=qtcreator_release
+qtcreator CMakeLists.txt
 ```
 
-Now, you can load a CMakeLists.txt into QtCreator:
+Use your usual desktop build kit.
+If needed just change the build directories to build_release and build_debug for release build and debug build respectively.
 
-``` bash
-qtcreator src/ai/CMakeLists.txt
-```
-
-In the configure project window, uncheck desktop and choose "import compil from..." and select `build_qtdebug/ssl_ai` then click on Import button. This will create a temporary imported kit with only one checked. You can add various setup (debug/release/...) by selecting the right building directory (i.e. build_qtrelease/ssl_ai).
-
-Finally, click on "Configure Project" button.
+Finally click on "Configure Project" button.
 
 If you want to reset your Qt configuration, just remove the file CMakeLists.txt.user. Also, please never add this file to the git repository.
