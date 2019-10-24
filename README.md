@@ -40,7 +40,7 @@ Check: http://gitlab.namec.fr/ssl/conan-configuration.git to see all available p
 To build in debug, run:
 
 ``` bash
-mkdir build_debug && build_debug
+mkdir build_debug && cd build_debug
 conan install .. # -pr=debug
 cmake ..  # -GNinja to compile with Ninja instead of make
 make -j 8 # or ninja
@@ -49,7 +49,7 @@ make -j 8 # or ninja
 To build in release, run:
 
 ``` bash
-mkdir build_release && build_release
+mkdir build_release && cd build_release
 conan install .. -pr=release
 cmake .. # -GNinja to compile with Ninja instead of make
 make -j 8 # or ninja
