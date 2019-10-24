@@ -103,11 +103,15 @@ To use QtCreator, you have to open the CMakeFiles:
 qtcreator CMakeLists.txt
 ```
 
-*Uncheck* your usual desktop build kit and *use* the differents `imported_kits`.
+**Uncheck** your usual desktop build kit and **use** the differents `imported_kits`.
 Finally click on "Configure Project" button.
 
 You should alwais build the project from the command line to avoid configurations errors.
 
 If you want to reset your Qt configuration, just remove the file CMakeLists.txt.user. Also, please never add this file to the git repository.
 
-## QtCreator
+## Help
+
+If you have strange errors with cmake or something else, you must :
+1. Remove all files in your build_directory 
+2. Redo the build instructions.
