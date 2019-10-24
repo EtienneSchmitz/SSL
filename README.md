@@ -24,7 +24,7 @@ Install [conan](https://docs.conan.io/en/latest/):
 
 ``` bash
 # Install conan  
-sudo pip install --user conan
+sudo pip3 install --user conan
 
 # Install NAMEC configuration of conan  
 conan config install http://gitlab.namec.fr/ssl/conan-configuration.git
@@ -103,9 +103,11 @@ To use QtCreator, you have to open the CMakeFiles:
 qtcreator CMakeLists.txt
 ```
 
-Use your usual desktop build kit.
-If needed just change the build directories to build_release and build_debug for release build and debug build respectively.
-
+*Uncheck* your usual desktop build kit and *use* the differents `imported_kits`.
 Finally click on "Configure Project" button.
 
+You should alwais build the project from the command line to avoid configurations errors.
+
 If you want to reset your Qt configuration, just remove the file CMakeLists.txt.user. Also, please never add this file to the git repository.
+
+## QtCreator
