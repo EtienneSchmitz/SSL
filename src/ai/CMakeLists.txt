@@ -59,6 +59,7 @@ set (SOURCES
     robot_behavior/tutorials/beginner/see_ball.cpp
     robot_behavior/tutorials/beginner/see_robot.cpp
     robot_behavior/go_to_xy.cpp
+    robot_behavior/translation_test.cpp
     robot_behavior/tutorials/medium/follow_robot.cpp
     robot_behavior/tutorials/medium/defender.cpp
     robot_behavior/kick_to_xy.cpp
@@ -195,7 +196,7 @@ target_link_libraries(goto_ball ssl_ai ${ALL_LIBS})
 
 # add_executable(goto_nv executables/goto_nv.cpp)
 # target_link_libraries(goto_nv ssl_ai ${ALL_LIBS})
-# 
+#
 # add_executable(go_to_xy_nv executables/go_to_xy_nv.cpp)
 # target_link_libraries(go_to_xy_nv ssl_ai ${ALL_LIBS})
 
