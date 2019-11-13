@@ -30,3 +30,5 @@ machine.dot
 **.pch
 
 .vscode/
+src/client/Kinematic.cpp
+src/client/Master.cpp
