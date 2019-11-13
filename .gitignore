@@ -32,5 +32,3 @@ machine.dot
 .vscode/
 src/client/Kinematic.cpp
 src/client/Master.cpp
-src/client/Master.cpp
-src/client/Kinematic.cpp
