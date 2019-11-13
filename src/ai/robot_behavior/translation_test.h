@@ -21,6 +21,7 @@
 
 #include "robot_behavior/factory.h"
 #include "robot_behavior/robot_behavior.h"
+#include <vector>
 
 namespace rhoban_ssl
 {
@@ -33,10 +34,11 @@ private:
   rhoban_ssl::annotations::Annotations annotations_;
 
   rhoban_geometry::Point target_point_;
+  std::vector<rhoban_geometry::Point> target_point_path_;
 
   bool reached_;
   double reach_radius_;
-  int goToCount_;
+  int goToCount_, path_size_;
 
 public:
   TranslationTest(rhoban_geometry::Point point = rhoban_geometry::Point(0, 0), double reach_radius = 0.01, int goToCount = 0);
@@ -48,6 +50,10 @@ public:
   void setPoint(rhoban_geometry::Point point);
 
   rhoban_geometry::Point getPoint() const;
+
+  void setPointPath(std::vector<rhoban_geometry::Point>  point_path, int size);
+
+  std::vector<rhoban_geometry::Point> getPointPath() const;
 
   void setReachRadius(double radius);
 

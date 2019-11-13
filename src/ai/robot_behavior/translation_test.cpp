@@ -46,76 +46,15 @@ void TranslationTest::update(double time, const data::Robot& robot, const data::
 
   if (robot_position.getDist(target_point_) <= reach_radius_)
   {
-    switch (goToCount_) {
-      case 0:
-          this->setPoint(rhoban_geometry::Point(-1, 1));
-          goToCount_++;
-          break;
-      case 1:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 2:
-          this->setPoint(rhoban_geometry::Point(-1, 0));
-          goToCount_++;
-          break;
-      case 3:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 4:
-          this->setPoint(rhoban_geometry::Point(-1, -1));
-          goToCount_++;
-          break;
-      case 5:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 6:
-          this->setPoint(rhoban_geometry::Point(-2, -1));
-          goToCount_++;
-          break;
-      case 7:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 8:
-          this->setPoint(rhoban_geometry::Point(-3, -1));
-          goToCount_++;
-          break;
-      case 9:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 10:
-          this->setPoint(rhoban_geometry::Point(-3, 0));
-          goToCount_++;
-          break;
-      case 11:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 12:
-          this->setPoint(rhoban_geometry::Point(-3, 1));
-          goToCount_++;
-          break;
-      case 13:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          goToCount_++;
-          break;
-      case 14:
-          this->setPoint(rhoban_geometry::Point(-2, 1));
-          goToCount_++;
-          break;
-      case 15:
-          this->setPoint(rhoban_geometry::Point(-2, 0));
-          reached_ = true;
-          break;
+    if (goToCount_ < path_size_){
+      this->setPoint(target_point_path_[goToCount_]);
+      goToCount_++;
+      printf("%d", goToCount_);
     }
   }
   rhoban_geometry::Point position_follower = target_point_;
 
-  Vector2d vect_robot_target = target_point_ - robot_position;
+  Vector2d vect_robot_target = robot_position;
   ContinuousAngle rotation_follower = vector2angle(vect_robot_target);
 
   follower_->setFollowingPosition(position_follower, rotation_follower);
@@ -132,6 +71,16 @@ void TranslationTest::setPoint(rhoban_geometry::Point point)
 rhoban_geometry::Point TranslationTest::getPoint() const
 {
   return target_point_;
+}
+
+void TranslationTest::setPointPath(std::vector<rhoban_geometry::Point>  point_path, int size){
+  target_point_path_ = point_path;
+  path_size_ = size;
+}
+
+std::vector<rhoban_geometry::Point> TranslationTest::getPointPath() const
+{
+  return target_point_path_;
 }
 
 void TranslationTest::setReachRadius(double radius)

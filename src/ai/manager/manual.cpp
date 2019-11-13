@@ -163,6 +163,24 @@
                                                 [&](double time, double dt) {
                                                   robot_behavior::TranslationTest* go = new robot_behavior::TranslationTest();
                                                   go->setPoint(rhoban_geometry::Point(-2, 0));
+                                                  std::vector<rhoban_geometry::Point> translate_path(16);
+                                                  translate_path[0] = rhoban_geometry::Point(-1, 1);
+                                                  translate_path[1] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[2] = rhoban_geometry::Point(-1, 0);
+                                                  translate_path[3] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[4] = rhoban_geometry::Point(-1, -1);
+                                                  translate_path[5] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[6] = rhoban_geometry::Point(-2, -1);
+                                                  translate_path[7] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[8] = rhoban_geometry::Point(-3, -1);
+                                                  translate_path[9] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[10] = rhoban_geometry::Point(-3, 0);
+                                                  translate_path[11] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[12] = rhoban_geometry::Point(-3, 1);
+                                                  translate_path[13] = rhoban_geometry::Point(-2, 0);
+                                                  translate_path[14] = rhoban_geometry::Point(-2, 1);
+                                                  translate_path[15] = rhoban_geometry::Point(-2, 0);
+                                                  go->setPointPath(translate_path, 16);
                                                   return std::shared_ptr<robot_behavior::RobotBehavior>(go);
                                                 },
                                                 false  // we don't want to define a goal here !
