@@ -29,7 +29,7 @@ Install [conan](https://docs.conan.io/en/latest/):
 
 ``` bash
 # Install conan  
-sudo pip3 install --user conan
+pip3 install --user conan
 ```
 
 NAMEC shares specifics conan [profiles](https://docs.conan.io/en/latest/reference/profiles.html) for Ubuntu 18.04.
