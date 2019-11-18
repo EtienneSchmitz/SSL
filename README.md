@@ -44,7 +44,7 @@ conan config install http://gitlab.namec.fr/ssl/conan-configuration.git
 You can specify a build type when you install conan dependencies by adding `-pr=<profile_name>` after the command `conan install ..` .
 Check: http://gitlab.namec.fr/ssl/conan-configuration.git to see all available profiles.
 
-By default all targets are build in **debug** mode.
+By default all targets are built in **debug** mode.
 
 To build in debug, run:
 
