@@ -20,7 +20,7 @@ Currently you must use an **Ubuntu 18.04** distribution to work with this softwa
 You will need theses packets:
 
 ``` bash
-sudo apt-get install -y g++ gnuplot python-pip clang-format-6.0 cmake
+sudo apt-get install -y g++ gnuplot python3-pip clang-format-6.0 cmake
 ```
 
 ### Setup conan package manager
