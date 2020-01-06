@@ -138,6 +138,7 @@ set (SOURCES
     strategy/striker_v2.cpp
     strategy/wall_2_passif.cpp
     strategy/pass.cpp
+    strategy/see_and_go_to_ball_strat.cpp
     # Behavior
     robot_behavior/keeper/clearer.cpp
     robot_behavior/keeper/keeper2.cpp
