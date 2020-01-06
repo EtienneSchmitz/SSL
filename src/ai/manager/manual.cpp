@@ -83,6 +83,7 @@
 
 #include <robot_behavior/chipkick.h>
 #include <robot_behavior/kicker.h>
+#include <strategy/see_and_go_to_ball_strat.h>
 
 namespace rhoban_ssl
 {
@@ -209,7 +210,10 @@ Manual::Manual(std::string name) : Manager(name)
                        },
                        false  // we don't want to define a goal here !
                        )));
-  
+
+  //See and Go to the Ball
+  registerStrategy("See and Go to the ball", std::shared_ptr<strategy::Strategy>(new strategy::SeeAndGoToBallStrat()));
+
   registerStrategy("Medium - Follow robot 0", std::shared_ptr<strategy::Strategy>(new strategy::FromRobotBehavior(
                                                   [&](double time, double dt) {
                                                     robot_behavior::medium::FollowRobot* follower =
