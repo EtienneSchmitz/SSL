@@ -52,7 +52,7 @@ namespace rhoban_ssl
 
         void WallStrat::start(double time){
             DEBUG("START WALL 1 OU 2");
-            nb_bot_ = getPlayerIds().size()
+            nb_bot_ = getPlayerIds().size();
             wall_bot_1_ = std::shared_ptr<robot_behavior::WallStop1>(new robot_behavior::WallStop1());
             wall_bot_2_ = std::shared_ptr<robot_behavior::WallStop2>(new robot_behavior::WallStop2());
 
@@ -64,7 +64,7 @@ namespace rhoban_ssl
         }
 
         void WallStrat::update(double time){
-            int nearest_ally_robot_from_ball = GameInformations::getShirtNumberOfClosestRobotToTheBall(ally);
+            int nearest_ally_robot_from_ball = GameInformations::getShirtNumberOfClosestRobotToTheBall(Ally);
             is_closest_0_ = false;
             is_closest_1_ = false;
 

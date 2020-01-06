@@ -129,6 +129,9 @@ set (SOURCES
     manager/match.cpp
     manager/dumb_manager.cpp
     manager/lord_of_darkness.cpp
+    # Behavior (tmp)
+    robot_behavior/wall_stop.cpp
+    robot_behavior/wall_stop_2.cpp
     # Strategy
     strategy/offensive.cpp
     strategy/defensive.cpp
