@@ -15,7 +15,7 @@ namespace rhoban_ssl
     namespace strategy
     {
         /*
-        Attributs prive:
+        Attributs prives:
             bool behaviors_are_assigned_;
 
             int NB_ROBOT = 1;
