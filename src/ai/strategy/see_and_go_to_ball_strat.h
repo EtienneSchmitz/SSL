@@ -1,4 +1,4 @@
-#include <strategy/strategy.h>
+#include "strategy.h"
 #include <robot_behavior/tutorials/beginner/goto_ball.h>
 
 /*
@@ -44,7 +44,6 @@ namespace rhoban_ssl
 
                 virtual rhoban_ssl::annotations::Annotations getAnnotations() const;
 
-            };
         };
     }; // namespace strategy
 }; // namespace rhoban_ssl

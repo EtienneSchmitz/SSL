@@ -1,3 +1,4 @@
+#include "strategy.h"
 #include <strategy/see_and_go_to_ball_strat.h>
 
 #include <robot_behavior/tutorials/beginner/goto_ball.h>
@@ -73,7 +74,6 @@ namespace rhoban_ssl
 
                 rhoban_ssl::annotations::Annotations SeeAndGoToBallStrat::getAnnotations() const;
 
-            };
         };
     }; // namespace strategy
 }; // namespace rhoban_ssl
