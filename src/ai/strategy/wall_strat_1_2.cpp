@@ -18,9 +18,17 @@ namespace rhoban_ssl
         /*
         int MIN_ROBOT_ = 1;
         int MAX_ROBOT_ = 2;
+        int nb_bot_;
+
+        std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
+        std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
 
         bool behaviors_are_assigned_;
         */
+
+        WallStrat::WallStrat(){
+
+        }
 
         WallStrat::WallStrat(){
 
@@ -47,7 +55,8 @@ namespace rhoban_ssl
         void WallStrat::start(double time){
             DEBUG("START WALL 1 OU 2");
 
-
+            wall_bot_1_ = std::shared_ptr<robot_behavior::WallStop1>(new robot_behavior::WallStop1());
+            wall_bot_2_ = std::shared_ptr<robot_behavior::WallStop2>(new robot_behavior::WallStop2());
 
             behaviors_are_assigned_ = false;
         }
@@ -60,9 +69,21 @@ namespace rhoban_ssl
 
         }
 
-        void WallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt);
+        void WallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
+            //Assignation en fonction du nombre de robot dispo
+            if(!behaviors_are_assigned_){
+                
 
-        rhoban_ssl::annotations::Annotations WallStrat::getAnnotations() const;
+
+                behaviors_are_assigned_ = true;
+            }
+        }
+
+        rhoban_ssl::annotations::Annotations WallStrat::getAnnotations() const{
+            rhoban_ssl::annotations::Annotations annotations;
+            
+            return annotations;
+        }
 
     } // namespace strategy
 } // namespace rhoban_ssl

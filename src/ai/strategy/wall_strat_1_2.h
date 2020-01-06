@@ -17,11 +17,17 @@ namespace rhoban_ssl
             private:
                 int MIN_ROBOT_ = 1;
                 int MAX_ROBOT_ = 2;
+                int nb_bot_;
+
+                std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
+                std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
 
                 bool behaviors_are_assigned_;
 
             public:
                 WallStrat();
+                WallStrat(int nb_bot_);
+
                 virtual ~WallStrat();
 
                 virtual int minRobots() const;

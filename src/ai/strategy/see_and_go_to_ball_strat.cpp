@@ -58,9 +58,11 @@ namespace rhoban_ssl
         }
 
         void SeeAndGoToBallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
-            assign_behavior(playerId(0), bot_ball_);
+            if(!behaviors_are_assigned_){
+                assign_behavior(playerId(0), bot_ball_);
 
-            behaviors_are_assigned_ = true;
+                behaviors_are_assigned_ = true;
+            }
         }
 
         //bool SeeAndGoToBallStrat::getStartingPositionForGoalie(rhoban_geometry::Point& linear_position, ContinuousAngle& angular_position);
