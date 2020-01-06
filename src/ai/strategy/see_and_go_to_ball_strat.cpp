@@ -1,5 +1,5 @@
 #include "strategy.h"
-#include <strategy/see_and_go_to_ball_strat.h>
+#include "see_and_go_to_ball_strat.h"
 
 #include <robot_behavior/tutorials/beginner/goto_ball.h>
 
@@ -14,66 +14,72 @@ namespace rhoban_ssl
 {
     namespace strategy
     {
-        class SeeAndGoToBallStrat : public Strategy
-        {
-            /*
-            private:
-                bool behaviors_are_assigned_;
+        /*
+        private:
+            bool behaviors_are_assigned_;
 
-                int NB_ROBOT = 1;
+            int NB_ROBOT = 1;
 
-                std::shared_ptr<robot_behavior::beginner::GotoBall> bot_ball_;
-            */
-            public:
-                SeeAndGoToBallStrat::SeeAndGoToBallStrat() : Strategy(){
-                }
-                
-                SeeAndGoToBallStrat::~SeeAndGoToBallStrat(){
-                }
-                
-                int SeeAndGoToBallStrat::minRobots() const{
-                    return NB_ROBOT;
-                }
+            std::shared_ptr<robot_behavior::beginner::GotoBall> bot_ball_;
+        */
 
-                int SeeAndGoToBallStrat::maxRobots() const{
-                    return NB_ROBOT;
-                }
+        SeeAndGoToBallStrat::SeeAndGoToBallStrat() : Strategy(){
+        }
+        
+        SeeAndGoToBallStrat::~SeeAndGoToBallStrat(){
+        }
+        
+        int SeeAndGoToBallStrat::minRobots() const{
+            return NB_ROBOT;
+        }
 
-                GoalieNeed SeeAndGoToBallStrat::needsGoalie() const{
-                    return GoalieNeed::NO;
-                }
+        int SeeAndGoToBallStrat::maxRobots() const{
+            return NB_ROBOT;
+        }
 
-                const std::string SeeAndGoToBallStrat::name = "Voir et Aller vers la Balle !";
+        GoalieNeed SeeAndGoToBallStrat::needsGoalie() const{
+            return GoalieNeed::NO;
+        }
 
-                void SeeAndGoToBallStrat::start(double time){
-                    DEBUG("START SeeAndGoToBallStrat");
-                    bot_ball_ = std::shared_ptr<robot_behavior::beginner::GotoBall>(new robot_behavior::beginner::GotoBall());
+        const std::string SeeAndGoToBallStrat::name = "Voir et Aller vers la Balle !";
 
-                    behaviors_are_assigned_ = false;
-                }
+        void SeeAndGoToBallStrat::start(double time){
+            DEBUG("START SeeAndGoToBallStrat");
+            bot_ball_ = std::shared_ptr<robot_behavior::beginner::GotoBall>(new robot_behavior::beginner::GotoBall());
 
-                void SeeAndGoToBallStrat::stop(double time){
-                    DEBUG("STOP SeeAndGoToBallStrat");
-                }
+            behaviors_are_assigned_ = false;
+        }
 
-                void SeeAndGoToBallStrat::update(double time){
-                }
+        void SeeAndGoToBallStrat::stop(double time){
+            DEBUG("STOP SeeAndGoToBallStrat");
+        }
 
-                void SeeAndGoToBallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
-                    std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt)
-                    {
-                        assign_behavior(playerId(0), bot_ball_);
-                    }
+        void SeeAndGoToBallStrat::update(double time){
+        }
 
-                    behaviors_are_assigned_ = true;
-                }
+        void SeeAndGoToBallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
+            assign_behavior(playerId(0), bot_ball_);
 
-                bool SeeAndGoToBallStrat::getStartingPositionForGoalie(rhoban_geometry::Point& linear_position, ContinuousAngle& angular_position);
+            behaviors_are_assigned_ = true;
+        }
 
-                void SeeAndGoToBallStrat::setPosition(rhoban_geometry::Point position);
+        //bool SeeAndGoToBallStrat::getStartingPositionForGoalie(rhoban_geometry::Point& linear_position, ContinuousAngle& angular_position);
 
-                rhoban_ssl::annotations::Annotations SeeAndGoToBallStrat::getAnnotations() const;
+        /*
+        std::list<std::pair<rhoban_geometry::Point, ContinuousAngle> > SeeAndGoToBallStrat::getStartingPositions(int number_of_avalaible_robots){
+            assert(minRobots() <= number_of_avalaible_robots);
+            assert(maxRobots() == -1 or number_of_avalaible_robots <= maxRobots());
 
-        };
-    }; // namespace strategy
-}; // namespace rhoban_ssl
+        }
+        */
+
+        rhoban_ssl::annotations::Annotations SeeAndGoToBallStrat::getAnnotations() const{
+            rhoban_ssl::annotations::Annotations annotations;
+
+            return annotations;
+        }
+
+        
+
+    } // namespace strategy
+} // namespace rhoban_ssl

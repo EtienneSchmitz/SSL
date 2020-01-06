@@ -38,9 +38,8 @@ namespace rhoban_ssl
 
                 virtual void assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt);
 
-                virtual bool getStartingPositionForGoalie(rhoban_geometry::Point& linear_position, ContinuousAngle& angular_position);
-
-                void setPosition(rhoban_geometry::Point position);
+                //virtual bool getStartingPositionForGoalie(rhoban_geometry::Point& linear_position, ContinuousAngle& angular_position);
+                //virtual std::list<std::pair<rhoban_geometry::Point, ContinuousAngle> > getStartingPositions(int number_of_avalaible_robots);
 
                 virtual rhoban_ssl::annotations::Annotations getAnnotations() const;
 
