@@ -1,5 +1,12 @@
 #include <strategy/strategy.h>
-#include <robot_behavior/go_to_xy.h>
+#include <robot_behavior/tutorials/beginner/goto_ball.h>
+
+/*
+Strategie ayant pour but:
+    -Regarder la balle
+    -Se diriger vers la balle
+    ->goto_ball
+*/
 
 namespace rhoban_ssl
 {
