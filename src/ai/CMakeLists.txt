@@ -139,6 +139,7 @@ set (SOURCES
     strategy/wall_2_passif.cpp
     strategy/pass.cpp
     strategy/see_and_go_to_ball_strat.cpp
+    strategy/wall_strat_1_2.cpp
     # Behavior
     robot_behavior/keeper/clearer.cpp
     robot_behavior/keeper/keeper2.cpp

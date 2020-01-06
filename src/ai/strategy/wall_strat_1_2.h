@@ -19,6 +19,9 @@ namespace rhoban_ssl
                 int MAX_ROBOT_ = 2;
                 int nb_bot_;
 
+                bool is_closest_0_;
+                bool is_closest_1_;
+
                 std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
                 std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
 
@@ -26,7 +29,6 @@ namespace rhoban_ssl
 
             public:
                 WallStrat();
-                WallStrat(int nb_bot_);
 
                 virtual ~WallStrat();
 

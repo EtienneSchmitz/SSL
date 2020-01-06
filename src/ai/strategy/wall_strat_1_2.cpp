@@ -20,6 +20,9 @@ namespace rhoban_ssl
         int MAX_ROBOT_ = 2;
         int nb_bot_;
 
+        bool is_closest_0_;
+        bool is_closest_1_;
+
         std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
         std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
 
@@ -27,11 +30,6 @@ namespace rhoban_ssl
         */
 
         WallStrat::WallStrat(){
-
-        }
-
-        WallStrat::WallStrat(){
-
         }
 
         WallStrat::~WallStrat(){
@@ -54,7 +52,7 @@ namespace rhoban_ssl
 
         void WallStrat::start(double time){
             DEBUG("START WALL 1 OU 2");
-
+            nb_bot_ = getPlayerIds().size()
             wall_bot_1_ = std::shared_ptr<robot_behavior::WallStop1>(new robot_behavior::WallStop1());
             wall_bot_2_ = std::shared_ptr<robot_behavior::WallStop2>(new robot_behavior::WallStop2());
 
@@ -66,15 +64,31 @@ namespace rhoban_ssl
         }
 
         void WallStrat::update(double time){
+            int nearest_ally_robot_from_ball = GameInformations::getShirtNumberOfClosestRobotToTheBall(ally);
+            is_closest_0_ = false;
+            is_closest_1_ = false;
 
+            if(nearest_ally_robot_from_ball == playerId(0)){
+                is_closest_0_ = true;
+            }
+            else{
+                if(nearest_ally_robot_from_ball == playerId(1) and nb_bot_ > 1){
+                    is_closest_1_ = true;
+                }
+            }
         }
 
         void WallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
             //Assignation en fonction du nombre de robot dispo
             if(!behaviors_are_assigned_){
+                if(is_closest_0_){
+                    assign_behavior(playerId(0), wall_bot_1_);
+                }
                 
-
-
+                if(nb_bot_ == 2 and is_closest_1_){
+                    assign_behavior(playerId(1), wall_bot_2_);
+                }
+                
                 behaviors_are_assigned_ = true;
             }
         }
