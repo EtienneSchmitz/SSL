@@ -23,7 +23,6 @@ namespace rhoban_ssl
 
             public:
                 SeeAndGoToBallStrat();
-                //SeeAndGoToBallStrat(rhoban_geometry::Point position);
                 virtual ~SeeAndGoToBallStrat();
                 
                 virtual int minRobots() const;

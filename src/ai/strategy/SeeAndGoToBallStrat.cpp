@@ -26,8 +26,6 @@ namespace rhoban_ssl
                 SeeAndGoToBallStrat::SeeAndGoToBallStrat() : Strategy(){
                 }
                 
-                //SeeAndGoToBallStrat(rhoban_geometry::Point position);
-                
                 SeeAndGoToBallStrat::~SeeAndGoToBallStrat(){
                 }
                 
