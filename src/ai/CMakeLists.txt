@@ -143,6 +143,8 @@ set (SOURCES
     robot_behavior/keeper/keeper2.cpp
     robot_behavior/attacker/receiver.cpp
     robot_behavior/attacker/striker.cpp
+    robot_behavior/chipkick.cpp
+    robot_behavior/kicker.cpp
     # Annotations
     annotations/annotations.cpp
     annotations/shape/shape.cpp
