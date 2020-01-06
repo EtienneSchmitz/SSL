@@ -19,8 +19,7 @@ namespace rhoban_ssl
 
                 int NB_ROBOT = 1;
 
-                // Position Balle
-                rhoban_geometry::Point position_;
+                std::shared_ptr<robot_behavior::beginner::GotoBall> bot_ball_;
 
             public:
                 SeeAndGoToBallStrat();

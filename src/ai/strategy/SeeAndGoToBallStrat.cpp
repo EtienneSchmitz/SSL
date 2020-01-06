@@ -20,8 +20,7 @@ namespace rhoban_ssl
 
                 int NB_ROBOT = 1;
 
-                // Position Balle
-                rhoban_geometry::Point position_;
+                std::shared_ptr<robot_behavior::beginner::GotoBall> bot_ball_;
             */
             public:
                 SeeAndGoToBallStrat::SeeAndGoToBallStrat() : Strategy(){
@@ -47,9 +46,10 @@ namespace rhoban_ssl
                 const std::string SeeAndGoToBallStrat::name = "Voir et Aller vers la Balle !";
 
                 void SeeAndGoToBallStrat::start(double time){
-                    DEBUG("START SeeAndGoToBallStratStrat");
-                    behaviors_are_assigned_ = false;
+                    DEBUG("START SeeAndGoToBallStrat");
+                    bot_ball_ = std::shared_ptr<robot_behavior::beginner::GotoBall>(new robot_behavior::beginner::GotoBall());
 
+                    behaviors_are_assigned_ = false;
                 }
 
                 void SeeAndGoToBallStrat::stop(double time){
@@ -62,8 +62,7 @@ namespace rhoban_ssl
                 void SeeAndGoToBallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
                     std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt)
                     {
-                        static_cast<robot_behavior::GoToXY*>(vect_go_to_xy_[0].get())->setPoint(position_);
-                        assign_behavior(playerId(0), vect_go_to_xy_.at(0));
+                        assign_behavior(playerId(0), bot_ball_);
                     }
 
                     behaviors_are_assigned_ = true;
