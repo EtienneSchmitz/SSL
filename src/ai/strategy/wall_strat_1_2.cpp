@@ -58,7 +58,7 @@ namespace rhoban_ssl
             DEBUG("START WALL 1 OU 2");
             wall_bot_1_ = std::shared_ptr<robot_behavior::WallStop1>(new robot_behavior::WallStop1());
             wall_bot_2_ = std::shared_ptr<robot_behavior::WallStop2>(new robot_behavior::WallStop2());
-
+            go_ball_ == std::shared_ptr<robot_behavior::beginner::GotoBall>(new robot_behavior::beginner::GotoBall());
             behaviors_are_assigned_ = false;
         }
 
