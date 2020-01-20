@@ -86,6 +86,7 @@ namespace rhoban_ssl
         }
 
         void WallStrat::update(double time){
+            /*
             WallStrat::set_near_bot();
 
             if(is_closest_0_){
@@ -95,12 +96,22 @@ namespace rhoban_ssl
             if(getPlayerIds().size() == 2 and is_closest_1_){
                 assign_behavior(playerId(1), wall_bot_2_);
             }
-
+            */
         }
 
         void WallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
             WallStrat::set_near_bot();
             
+            if(!behaviors_are_assigned_){
+                assign_behavior(playerId(0), wall_bot_1_);
+                if(getPlayerIds().size() == 2){
+                    assign_behavior(playerId(1), wall_bot_2_);
+                }
+                
+                behaviors_are_assigned_ = true;
+            }
+            
+            /*
             if(!behaviors_are_assigned_){
                 //Assigner les robots à des behavior par "défaut"
                 //Vérifier avant le comportement complet des Behavior
@@ -120,6 +131,7 @@ namespace rhoban_ssl
                 
                 behaviors_are_assigned_ = true;
             }
+            */
         }
 
         rhoban_ssl::annotations::Annotations WallStrat::getAnnotations() const{
