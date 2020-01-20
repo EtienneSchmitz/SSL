@@ -112,7 +112,7 @@ namespace rhoban_ssl
                 }
                 if(getPlayerIds().size() == 2 and is_closest_1_){
                     assign_behavior(playerId(1), wall_bot_2_);
-                }else if (getPlayerIds().size == 2))
+                }else if (getPlayerIds().size() == 2)
                 {
                     assign_behavior(playerId(1), go_ball_);
                 }
