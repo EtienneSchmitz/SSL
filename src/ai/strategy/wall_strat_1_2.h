@@ -1,6 +1,7 @@
 #include "strategy.h"
 #include <robot_behavior/wall_stop.h>
 #include <robot_behavior/wall_stop_2.h>
+#include <robot_behavior/tutorials/beginner/goto_ball.h>
 
 /*
 Strategie Wall
@@ -24,6 +25,7 @@ namespace rhoban_ssl
 
                 std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
                 std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
+                std::shared_ptr<robot_behavior::beginner::GotoBall> go_ball_;
 
                 bool behaviors_are_assigned_;
 
@@ -42,6 +44,7 @@ namespace rhoban_ssl
                 virtual void stop(double time);
 
                 virtual void update(double time);
+                void set_near_bot();
 
                 virtual void assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt);
 

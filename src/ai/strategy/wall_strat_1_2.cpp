@@ -5,6 +5,8 @@
 #include <robot_behavior/wall_stop.h>
 #include <robot_behavior/wall_stop_2.h>
 
+#include <robot_behavior/tutorials/beginner/goto_ball.h>
+
 /*
 Strategie Wall
     -Mono   (wall_stop)
@@ -25,6 +27,8 @@ namespace rhoban_ssl
 
         std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
         std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
+        std::shared_ptr<robot_behavior::beginner::GotoBall> go_ball_;
+
 
         bool behaviors_are_assigned_;
         */
@@ -62,7 +66,7 @@ namespace rhoban_ssl
             DEBUG("STOP WALL 1 OU 2");
         }
 
-        void WallStrat::update(double time){
+        void WallStrat::set_near_bot(){
             nb_bot_ = getPlayerIds().size();
             fprintf(stdout,"Taille tableau Update %i\n",nb_bot_);
             int nearest_ally_robot_from_ball = GameInformations::getShirtNumberOfClosestRobotToTheBall(Ally);
@@ -79,8 +83,10 @@ namespace rhoban_ssl
                     }
                 }
             }
-            
-            //On réassigne les robots aux bons Behaviors
+        }
+
+        void WallStrat::update(double time){
+            WallStrat::set_near_bot();
 
             if(is_closest_0_){
                 assign_behavior(playerId(0), wall_bot_1_);
@@ -93,17 +99,24 @@ namespace rhoban_ssl
         }
 
         void WallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
-            //Assignation en fonction du nombre de robot dispo
+            WallStrat::set_near_bot();
+            
             if(!behaviors_are_assigned_){
                 //Assigner les robots à des behavior par "défaut"
                 //Vérifier avant le comportement complet des Behavior
                 if(is_closest_0_){
                     assign_behavior(playerId(0), wall_bot_1_);
                 }
-                
+                else{
+                    assign_behavior(playerId(0), go_ball_);
+                }
                 if(getPlayerIds().size() == 2 and is_closest_1_){
                     assign_behavior(playerId(1), wall_bot_2_);
+                }else if (getPlayerIds().size == 2))
+                {
+                    assign_behavior(playerId(1), go_ball_);
                 }
+                
                 
                 behaviors_are_assigned_ = true;
             }
