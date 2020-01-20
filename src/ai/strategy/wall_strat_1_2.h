@@ -17,7 +17,7 @@ namespace rhoban_ssl
             private:
                 int MIN_ROBOT_ = 1;
                 int MAX_ROBOT_ = 2;
-                int nb_bot_;
+                int nb_bot_ = 0;
 
                 bool is_closest_0_;
                 bool is_closest_1_;
