@@ -1,6 +1,7 @@
 #include "strategy.h"
-#include <robot_behavior/wall_stop.h>
-#include <robot_behavior/wall_stop_2.h>
+
+#include <robot_behavior/defender/defensive_wall.h>
+
 #include <robot_behavior/tutorials/beginner/goto_ball.h>
 
 /*
@@ -23,9 +24,8 @@ namespace rhoban_ssl
                 bool is_closest_0_;
                 bool is_closest_1_;
 
-                std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
-                std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
-                std::shared_ptr<robot_behavior::beginner::GotoBall> go_ball_;
+                std::shared_ptr<robot_behavior::DefensiveWall> wall_bot_1_;
+                std::shared_ptr<robot_behavior::DefensiveWall> wall_bot_2_;
 
                 bool behaviors_are_assigned_;
 

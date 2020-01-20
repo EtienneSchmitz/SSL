@@ -2,8 +2,7 @@
 
 #include "wall_strat_1_2.h"
 
-#include <robot_behavior/wall_stop.h>
-#include <robot_behavior/wall_stop_2.h>
+#include <robot_behavior/defender/defensive_wall.h>
 
 #include <robot_behavior/tutorials/beginner/goto_ball.h>
 
@@ -25,10 +24,8 @@ namespace rhoban_ssl
         bool is_closest_0_;
         bool is_closest_1_;
 
-        std::shared_ptr<robot_behavior::WallStop1> wall_bot_1_;
-        std::shared_ptr<robot_behavior::WallStop2> wall_bot_2_;
-        std::shared_ptr<robot_behavior::beginner::GotoBall> go_ball_;
-
+        std::shared_ptr<robot_behavior::DefensiveWall> wall_bot_1_;
+        std::shared_ptr<robot_behavior::DefensiveWall> wall_bot_2_;
 
         bool behaviors_are_assigned_;
         */
@@ -41,7 +38,7 @@ namespace rhoban_ssl
         }
 
         int WallStrat::minRobots() const{
-            return MIN_ROBOT_;
+            return MIN_ROBOT_/**2 Pour tester le mur à 2*/;
         }
 
         int WallStrat::maxRobots() const{
@@ -56,9 +53,6 @@ namespace rhoban_ssl
 
         void WallStrat::start(double time){
             DEBUG("START WALL 1 OU 2");
-            wall_bot_1_ = std::shared_ptr<robot_behavior::WallStop1>(new robot_behavior::WallStop1());
-            wall_bot_2_ = std::shared_ptr<robot_behavior::WallStop2>(new robot_behavior::WallStop2());
-            go_ball_ == std::shared_ptr<robot_behavior::beginner::GotoBall>(new robot_behavior::beginner::GotoBall());
             behaviors_are_assigned_ = false;
         }
 
@@ -68,7 +62,7 @@ namespace rhoban_ssl
 
         void WallStrat::set_near_bot(){
             nb_bot_ = getPlayerIds().size();
-            fprintf(stdout,"Taille tableau Update %i\n",nb_bot_);
+            //fprintf(stdout,"Taille tableau Update %i\n",nb_bot_);
             int nearest_ally_robot_from_ball = GameInformations::getShirtNumberOfClosestRobotToTheBall(Ally);
             is_closest_0_ = false;
             is_closest_1_ = false;
@@ -86,6 +80,12 @@ namespace rhoban_ssl
         }
 
         void WallStrat::update(double time){
+            WallStrat::set_near_bot();
+
+            if(nb_bot_ != getPlayerIds().size()){
+                behaviors_are_assigned_ = false;
+                fprintf(stdout,"Modif Size !");
+            }
             /*
             WallStrat::set_near_bot();
 
@@ -101,12 +101,22 @@ namespace rhoban_ssl
 
         void WallStrat::assignBehaviorToRobots(std::function<void(int, std::shared_ptr<robot_behavior::RobotBehavior>)> assign_behavior, double time, double dt){
             WallStrat::set_near_bot();
-            
+           
             if(!behaviors_are_assigned_){
-                assign_behavior(playerId(0), wall_bot_1_);
+                fprintf(stdout,"Assignation Robots !");
+    
+                wall_bot_1_ = std::shared_ptr<robot_behavior::DefensiveWall>(new robot_behavior::DefensiveWall());
+
                 if(getPlayerIds().size() == 2){
+                    wall_bot_2_ = std::shared_ptr<robot_behavior::DefensiveWall>(new robot_behavior::DefensiveWall());
+
+                    static_cast<robot_behavior::DefensiveWall*>(wall_bot_1_.get())->declareWallRobotId(0, 2);
+                    static_cast<robot_behavior::DefensiveWall*>(wall_bot_2_.get())->declareWallRobotId(1, 2);
+
                     assign_behavior(playerId(1), wall_bot_2_);
                 }
+
+                assign_behavior(playerId(0), wall_bot_1_);
                 
                 behaviors_are_assigned_ = true;
             }
