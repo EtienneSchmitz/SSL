@@ -177,6 +177,32 @@ Manual::Manual(std::string name) : Manager(name)
                                           },
                                           false  // we don't want to define a goal here !
                                           )));
+//Kicker
+  registerStrategy("Kick the ball",
+                   std::shared_ptr<strategy::Strategy>(new strategy::FromRobotBehavior(
+                       [&](double time, double dt) {
+                         robot_behavior::Kicker* kicker = new robot_behavior::Kicker();
+                         kicker->control();
+                         //robot_behavior::beginner::GotoBall* beginner_goto_ball =
+                         //    new robot_behavior::beginner::GotoBall();
+                         //beginner_goto_ball->dribbler(true);
+                         return std::shared_ptr<robot_behavior::RobotBehavior>(kicker);
+                       },
+                       false  // we don't want to define a goal here !
+                       )));
+  //Chipkick
+  registerStrategy("Chipkick the ball",
+                   std::shared_ptr<strategy::Strategy>(new strategy::FromRobotBehavior(
+                       [&](double time, double dt) {
+                         robot_behavior::Chipkick* chipkick = new robot_behavior::Chipkick();
+                         chipkick->control();
+                         //robot_behavior::beginner::GotoBall* beginner_goto_ball =
+                         //    new robot_behavior::beginner::GotoBall();
+                         //beginner_goto_ball->dribbler(true);
+                         return std::shared_ptr<robot_behavior::RobotBehavior>(chipkick);
+                       },
+                       false  // we don't want to define a goal here !
+                       )));
   registerStrategy("Medium - Follow robot 0", std::shared_ptr<strategy::Strategy>(new strategy::FromRobotBehavior(
                                                   [&](double time, double dt) {
                                                     robot_behavior::medium::FollowRobot* follower =
